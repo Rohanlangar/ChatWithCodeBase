@@ -5,7 +5,7 @@ from langchain_pinecone import PineconeVectorStore
 from langchain_huggingface import HuggingFaceEmbeddings
 import pinecone
 
-os.environ["PINECONE_API_KEY"] = "pcsk_6fjoqa_6JfqDfXQcyqfW3kozHJ6CqrDXbqpFhpFCmRyYEozP7g7uN5q2UzaLyRmtZpsjWs"
+os.environ["PINECONE_API_KEY"] = ""
 
 
 def vectorStore(indexname='code-base', namespace='default',code_path='cloned_repo'):
