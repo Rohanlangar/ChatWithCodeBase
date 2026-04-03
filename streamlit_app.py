@@ -104,7 +104,7 @@ if st.session_state.vector_store_ready:
                 # Import the necessary components for direct QA
                 from langchain_huggingface import HuggingFaceEmbeddings
                 from langchain_pinecone import PineconeVectorStore
-                from langchain_groq import ChatGroq
+                from langchain_ollama import ChatOllama
                 from langchain.chains import RetrievalQA
                 
                 # Set up the QA chain (same as in chat.py)
@@ -112,8 +112,9 @@ if st.session_state.vector_store_ready:
                 vectorstore = PineconeVectorStore.from_existing_index(index_name="code-base", embedding=embeddings)
                 retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
                 
-                llm = ChatGroq(
-                    model="openai/gpt-oss-20b",  
+                # Using Local Llama 3.1:8b via Ollama
+                llm = ChatOllama(
+                    model="llama3.1:8b",  
                     temperature=0.7
                 )
                 
@@ -146,4 +147,4 @@ else:
 
 # Footer
 st.markdown("---")
-st.markdown("Built with ❤️ using Streamlit, LangChain, and Groq")
+st.markdown("Built with ❤️ using Streamlit, LangChain, and Local Llama 3.1 (Ollama)")
