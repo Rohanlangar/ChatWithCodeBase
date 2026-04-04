@@ -1,11 +1,12 @@
 import os
 from langchain_pinecone import PineconeVectorStore
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_ollama import ChatOllama
+from langchain_groq import ChatGroq
 from langchain.chains import RetrievalQA
 
 os.environ["PINECONE_API_KEY"] = "pcsk_6fjoqa_6JfqDfXQcyqfW3kozHJ6CqrDXbqpFhpFCmRyYEozP7g7uN5q2UzaLyRmtZpsjWs"
-# Local and Free using Ollama (Llama 3.1:8b)
+os.environ["GROQ_API_KEY"] = "YOUR_GROQ_API_KEY_HERE"
+# Using Groq (Llama 3.1)
 
 def chat_with_repo(index_name="code-base"):
     embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
@@ -13,9 +14,9 @@ def chat_with_repo(index_name="code-base"):
     vectorstore = PineconeVectorStore.from_existing_index(index_name=index_name, embedding=embeddings)
     retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
     
-    # Using Local Llama 3.1:8b via Ollama
-    llm = ChatOllama(
-        model="llama3.1:8b",  
+    # Using Groq Llama 3.1:8b
+    llm = ChatGroq(
+        model="llama-3.1-8b-instant",  
         temperature=0.7
     )
 
